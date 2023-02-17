@@ -38,15 +38,15 @@ class Controller extends BaseController
                 $lang . '_title as title',
                 $lang . '_description as description',
                 'image as img',
-                'multi_image',
+                'multi_image as images',
                 'is_active'
             )->latest()->take(5)->get();
             $ads = Ad::select(
                 'id',
                 $lang . '_title as title',
-                $lang . '_description as artist',
+                $lang . '_description as description',
                 'image as src',
-                'multi_image',
+                'multi_image as images',
                 'url_link as link',
                 'is_active'
             )->latest()->take(3)->get();
@@ -78,7 +78,7 @@ class Controller extends BaseController
                 'id',
                 $lang . '_title as title',
                 $lang . '_description as description',
-                'multi_image',
+                'multi_image as images',
                 'is_active'
             )->latest()->take(10)->get();
             $topics = Topic::select(
@@ -86,7 +86,7 @@ class Controller extends BaseController
                 $lang . '_title as title',
                 $lang . '_description as description',
                 'image as img',
-                'multi_image',
+                'multi_image as images',
                 'is_active'
             )->latest()->take(10)->get();
 
@@ -114,6 +114,57 @@ class Controller extends BaseController
                 "topics" => [],
                 "services" => []
             ]);
+        }
+    }
+
+    public function get_content_by_id(Request $request) {
+        $lang = $request->input('lang');
+        $id = $request->input('id');
+        $table = $request->input('table');
+
+        switch($table) {
+            case "posts":
+                $data = Post::query()->select(
+                    'id',
+                    $lang . '_title as title',
+                    $lang . '_description as description',
+                    'image as image',
+                    'multi_image as images',
+                    'is_active'
+                )->where('id', $id)->get();
+                return $data;
+            case "ads":
+                $data = Ad::query()->select(
+                    'id',
+                    $lang . '_title as title',
+                    $lang . '_description as description',
+                    'image as image',
+                    'multi_image as images',
+                    'url_link as link',
+                    'is_active'
+                )->where('id', $id)->get();
+                return $data;
+            case "news":
+                $data = News::query()->select(
+                    'id',
+                    $lang . '_title as title',
+                    $lang . '_description as description',
+                    'multi_image as images',
+                    'is_active'
+                )->where('id', $id)->get();
+                return $data;
+            case "topics":
+                $data = Topic::query()->select(
+                    'id',
+                    $lang . '_title as title',
+                    $lang . '_description as description',
+                    'image as image',
+                    'multi_image as images',
+                    'is_active'
+                )->where('id', $id)->get();
+                return $data;
+            default:
+                return null;
         }
     }
 

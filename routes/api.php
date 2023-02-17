@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/cms',[\App\Http\Controllers\Controller::class,'api']);
 Route::get('/school',[\App\Http\Controllers\Controller::class,'info']);
 Route::get('/school_description',[\App\Http\Controllers\Controller::class,'school_description']);
+Route::get('/get_content',[\App\Http\Controllers\Controller::class,'get_content_by_id']);
