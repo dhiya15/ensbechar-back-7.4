@@ -120,7 +120,7 @@ class Controller extends BaseController
     public function get_content_by_id(Request $request) {
         $lang = $request->input('lang');
         $id = $request->input('id');
-        $table = $request->input('table');
+        $table = $request->input('type');
 
         switch($table) {
             case "posts":
@@ -130,7 +130,8 @@ class Controller extends BaseController
                     $lang . '_description as description',
                     'image as image',
                     'multi_image as images',
-                    'is_active'
+                    'is_active',
+                    'created_at'
                 )->where('id', $id)->get();
                 return $data;
             case "ads":
@@ -141,7 +142,8 @@ class Controller extends BaseController
                     'image as image',
                     'multi_image as images',
                     'url_link as link',
-                    'is_active'
+                    'is_active',
+                    'created_at'
                 )->where('id', $id)->get();
                 return $data;
             case "news":
@@ -150,7 +152,8 @@ class Controller extends BaseController
                     $lang . '_title as title',
                     $lang . '_description as description',
                     'multi_image as images',
-                    'is_active'
+                    'is_active',
+                    'created_at'
                 )->where('id', $id)->get();
                 return $data;
             case "topics":
@@ -160,7 +163,8 @@ class Controller extends BaseController
                     $lang . '_description as description',
                     'image as image',
                     'multi_image as images',
-                    'is_active'
+                    'is_active',
+                    'created_at'
                 )->where('id', $id)->get();
                 return $data;
             default:

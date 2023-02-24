@@ -14,3 +14,9 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('school-description/1/edit') }}"><i class="nav-icon la la-th-list"></i> School descriptions</a></li>
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('services') }}"><i class="nav-icon la la-th-list"></i> Services</a></li>
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('livre') }}"><i class="nav-icon la la-book"></i> Livres</a></li>
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('etudiant') }}"><i class="nav-icon la la-user-graduate"></i> Etudiants</a></li>
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('contact') }}"><i class="nav-icon la la-address-card"></i> Contacts</a></li>
