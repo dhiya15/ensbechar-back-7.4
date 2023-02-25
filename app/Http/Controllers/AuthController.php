@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request){
         $request = $request->validated();
-        $etudiant = Etudiant::where('email', $request['email'])->first();
+        $etudiant = Etudiant::where('code', $request['email'])->first();
         if (!$etudiant || !Hash::check($request['password'], $etudiant->mot_de_passe)) {
             return response()->json([
                 'success' => false,
