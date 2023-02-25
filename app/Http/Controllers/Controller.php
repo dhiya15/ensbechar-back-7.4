@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use App\Models\Application;
 use App\Models\Department;
 use App\Models\ImportantWebsite;
 use App\Models\MAd;
@@ -121,6 +122,7 @@ class Controller extends BaseController
     public function mobile_api(Request $request) {
         try {
             $lang = $request->input('lang');
+
             $posts = Post::select(
                 'id',
                 $lang . '_title as title',
@@ -129,6 +131,7 @@ class Controller extends BaseController
                 'multi_image as images',
                 'is_active'
             )->latest()->take(5)->get();
+
             $ads = Ad::select(
                 'id',
                 $lang . '_title as title',
@@ -138,6 +141,7 @@ class Controller extends BaseController
                 'url_link as link',
                 'is_active'
             )->latest()->take(3)->get();
+
             $mads = MAd::select(
                 'id',
                 $lang . '_title as title',
@@ -145,11 +149,22 @@ class Controller extends BaseController
                 'is_active'
             )->latest()->take(3)->get();
 
+            $applications = Application::select(
+                'id',
+                $lang . '_title as title',
+                $lang . '_description as description',
+                'image',
+                'multi_image',
+                'url_link',
+                'is_active'
+            )->get();
+
             return response()->json([
                 "status" => true,
                 "posts" => $posts,
                 "ads" => $ads,
                 "mads" => $mads,
+                "applications" => $applications,
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -157,7 +172,8 @@ class Controller extends BaseController
                 "message" => $e->getMessage(),
                 "posts" => [],
                 "ads" => [],
-                "mads" => []
+                "mads" => [],
+                "applications" => [],
             ]);
         }
     }
