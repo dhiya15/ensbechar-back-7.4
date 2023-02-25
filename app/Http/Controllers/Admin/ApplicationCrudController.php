@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\SchoolDescriptionRequest;
+use App\Http\Requests\ApplicationRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class SchoolDescriptionCrudController
+ * Class ApplicationCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class SchoolDescriptionCrudController extends CrudController
+class ApplicationCrudController extends CrudController
 {
-    //use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    //use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    //use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    //use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -26,9 +26,9 @@ class SchoolDescriptionCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\SchoolDescription::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/school-description');
-        CRUD::setEntityNameStrings('la description de l\'ecole', '');
+        CRUD::setModel(\App\Models\Application::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/application');
+        CRUD::setEntityNameStrings('Application', 'Applications');
     }
 
     /**
@@ -61,7 +61,7 @@ class SchoolDescriptionCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(SchoolDescriptionRequest::class);
+        CRUD::setValidation(ApplicationRequest::class);
 
         CRUD::addField([
             'name' => 'fr_title',
@@ -116,6 +116,17 @@ class SchoolDescriptionCrudController extends CrudController
             'type'      => 'upload_multiple',
             'upload'    => true,
             'wrapper' => ['class' => 'form-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'url_link',
+            'label' => 'URL',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-6'],
+        ]);
+        CRUD::addField([
+            'name' => 'is_active',
+            'label' => 'Active'
         ]);
 
         /**

@@ -25,6 +25,10 @@ Route::get('/school',[Controller::class,'info']);
 Route::get('/school_description',[Controller::class,'school_description']);
 Route::get('/get_content',[Controller::class,'get_content_by_id']);
 Route::post('/tmac_contact',[ConferenceContactController::class,'tmac_contact']);
+Route::post('/contact',[ContactController::class,'contact']);
+
+// Mobile CMS
+Route::get('/mobile_api',[Controller::class,'mobile_api']);
 
 // E-Library Routes
 Route::post('login', [AuthController::class, 'login']);
@@ -32,5 +36,4 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('search', [LivreController::class, 'trouverLivre']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('contact',[ContactController::class,'contact']);
 });

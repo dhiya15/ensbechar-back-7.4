@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\SchoolDescriptionRequest;
+use App\Http\Requests\MadRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class SchoolDescriptionCrudController
+ * Class MadCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class SchoolDescriptionCrudController extends CrudController
+class MadCrudController extends CrudController
 {
-    //use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    //use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    //use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    //use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -26,9 +26,9 @@ class SchoolDescriptionCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\SchoolDescription::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/school-description');
-        CRUD::setEntityNameStrings('la description de l\'ecole', '');
+        CRUD::setModel(\App\Models\Mad::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/mad');
+        CRUD::setEntityNameStrings('Annonce', 'Annonces');
     }
 
     /**
@@ -39,6 +39,8 @@ class SchoolDescriptionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+
+
         CRUD::addColumn([
             'name' => 'fr_title',
             'label' => 'Titre',
@@ -46,11 +48,12 @@ class SchoolDescriptionCrudController extends CrudController
             'limit'  => 200
         ]);
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
+        CRUD::addColumn([
+            'name' => 'is_active',
+            'label' => 'Status',
+            'type'  => 'boolean',
+            'options' => [1 => 'Active', 0 => 'Inactive']
+        ]);
     }
 
     /**
@@ -61,7 +64,7 @@ class SchoolDescriptionCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(SchoolDescriptionRequest::class);
+        CRUD::setValidation(MadRequest::class);
 
         CRUD::addField([
             'name' => 'fr_title',
@@ -69,6 +72,7 @@ class SchoolDescriptionCrudController extends CrudController
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4'],
         ]);
+
         CRUD::addField([
             'name' => 'en_title',
             'label' => 'Titre en englais',
@@ -86,37 +90,29 @@ class SchoolDescriptionCrudController extends CrudController
         CRUD::addField([
             'name' => 'fr_description',
             'label' => "Description en francais",
-            'type'  => 'summernote',
+            'type'  => 'textarea',
             'wrapper' => ['class' => 'form-group col-md-12'],
         ]);
+
         CRUD::addField([
             'name' => 'en_description',
             'label' => "Description en englais",
-            'type'  => 'summernote',
+            'type'  => 'textarea',
             'wrapper' => ['class' => 'form-group col-md-12'],
         ]);
+
         CRUD::addField([
             'name' => 'ar_description',
             'label' => "Description en arabe",
-            'type'  => 'summernote',
+            'type'  => 'textarea',
             'wrapper' => ['class' => 'form-group col-md-12'],
         ]);
 
         CRUD::addField([
-            'label' => "Image",
-            'name' => 'image',
-            'type' => 'upload',
-            'upload' => true,
-            'wrapper' => ['class' => 'form-group col-md-6'],
+            'name' => 'is_active',
+            'label' => 'Active'
         ]);
 
-        CRUD::addField([   // Upload
-            'name'      => 'multi_image',
-            'label'     => 'Photos',
-            'type'      => 'upload_multiple',
-            'upload'    => true,
-            'wrapper' => ['class' => 'form-group col-md-6'],
-        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

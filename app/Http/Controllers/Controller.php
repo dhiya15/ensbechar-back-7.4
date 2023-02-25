@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ad;
 use App\Models\Department;
 use App\Models\ImportantWebsite;
+use App\Models\MAd;
 use App\Models\News;
 use App\Models\Post;
 use App\Models\School;
@@ -113,6 +114,50 @@ class Controller extends BaseController
                 "news" => [],
                 "topics" => [],
                 "services" => []
+            ]);
+        }
+    }
+
+    public function mobile_api(Request $request) {
+        try {
+            $lang = $request->input('lang');
+            $posts = Post::select(
+                'id',
+                $lang . '_title as title',
+                $lang . '_description as description',
+                'image as img',
+                'multi_image as images',
+                'is_active'
+            )->latest()->take(5)->get();
+            $ads = Ad::select(
+                'id',
+                $lang . '_title as title',
+                $lang . '_description as description',
+                'image as src',
+                'multi_image as images',
+                'url_link as link',
+                'is_active'
+            )->latest()->take(3)->get();
+            $mads = MAd::select(
+                'id',
+                $lang . '_title as title',
+                $lang . '_description as description',
+                'is_active'
+            )->latest()->take(3)->get();
+
+            return response()->json([
+                "status" => true,
+                "posts" => $posts,
+                "ads" => $ads,
+                "mads" => $mads,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => false,
+                "message" => $e->getMessage(),
+                "posts" => [],
+                "ads" => [],
+                "mads" => []
             ]);
         }
     }
