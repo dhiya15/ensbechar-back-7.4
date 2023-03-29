@@ -140,7 +140,7 @@ class Controller extends BaseController
                 'multi_image as images',
                 'url_link as link',
                 'is_active'
-            )->latest()->take(3)->get();
+            )->where("is_active", true)->latest()->take(3)->get();
 
             $mads = MAd::select(
                 'id',

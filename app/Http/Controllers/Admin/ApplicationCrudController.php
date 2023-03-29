@@ -86,19 +86,19 @@ class ApplicationCrudController extends CrudController
         CRUD::addField([
             'name' => 'fr_description',
             'label' => "Description en francais",
-            'type'  => 'summernote',
+            'type'  => 'textarea',
             'wrapper' => ['class' => 'form-group col-md-12'],
         ]);
         CRUD::addField([
             'name' => 'en_description',
             'label' => "Description en englais",
-            'type'  => 'summernote',
+            'type'  => 'textarea',
             'wrapper' => ['class' => 'form-group col-md-12'],
         ]);
         CRUD::addField([
             'name' => 'ar_description',
             'label' => "Description en arabe",
-            'type'  => 'summernote',
+            'type'  => 'textarea',
             'wrapper' => ['class' => 'form-group col-md-12'],
         ]);
 

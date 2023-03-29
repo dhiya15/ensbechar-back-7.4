@@ -48,3 +48,5 @@
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('contact') }}"><i class="nav-icon la la-address-card"></i> Contacts</a></li>
 
+
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('qreistration') }}"><i class="nav-icon la la-th-list"></i> Quran</a></li>
